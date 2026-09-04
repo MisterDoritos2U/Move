@@ -1,0 +1,2 @@
+- Migrated to WPF/XAML from Windows Forms
+- Requires PowerShell 7 be installed to run.

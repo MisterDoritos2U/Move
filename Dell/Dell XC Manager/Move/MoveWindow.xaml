@@ -1,0 +1,188 @@
+<Window
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    Name="MoveWindow"
+    Title="Move Inventory"
+    Height="760"
+    Width="1280"
+    MinHeight="620"
+    MinWidth="980"
+    Style="{DynamicResource MaterialDesignWindow}"
+    WindowStartupLocation="CenterScreen"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    TextElement.FontSize="14"
+    TextElement.FontFamily="Roboto"
+    TextOptions.TextFormattingMode="Ideal"
+    TextOptions.TextRenderingMode="Auto"
+    WindowStyle="None"
+    AllowsTransparency="True"
+    Background="Transparent"
+    ResizeMode="CanResize"
+    UseLayoutRounding="True"
+    SnapsToDevicePixels="True">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Orange.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Yellow.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid Margin="8">
+        <Border Background="#FF110404" CornerRadius="18" BorderBrush="#FF085E00" BorderThickness="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="42" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Margin="10,6,12,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                        <materialDesign:PackIcon Kind="TransitConnectionVariant" Width="22" Height="22" Margin="0,0,8,0" Foreground="#FFECB879" />
+                        <TextBlock Text="Move VM Inventory" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                        <Button Name="MinimizeMoveButton" Height="28" Width="28" Margin="0,0,4,0" Background="#F8864343" BorderThickness="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0">
+                            <materialDesign:PackIcon Kind="WindowMinimize" Height="18" Width="18" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" />
+                        </Button>
+                        <Button Name="CloseMoveButton" Height="28" Width="28" Margin="0" Background="#EA301F1F" BorderThickness="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0" ToolTip="Close">
+                            <materialDesign:PackIcon Kind="Close" Height="18" Width="18" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" />
+                        </Button>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Row="1" Margin="12,8,12,12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="340" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Border Grid.Column="0" Background="#FF181818" CornerRadius="12" Margin="0,0,10,0" Padding="10">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Grid.Row="0" Margin="0,0,0,8">
+                                <TextBlock Text="Move VM" FontWeight="Bold" Foreground="#FFECB879" Margin="0,0,0,6" />
+                                <Grid>
+                                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                                    <ComboBox Name="MovePrismCentralCombo" Width="220" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Select Move VM" />
+                                    <Button Name="CreateMovePlanButton" Grid.Column="1" Content="Create Plan" Margin="8,0,0,0" Padding="14,7" IsEnabled="False">
+                                        <Button.ContentTemplate>
+                                            <DataTemplate><StackPanel Orientation="Horizontal"><materialDesign:PackIcon Kind="Plus" Width="18" Height="18" Margin="0,0,5,0"/><TextBlock Text="Create Plan"/></StackPanel></DataTemplate>
+                                        </Button.ContentTemplate>
+                                    </Button>
+                                </Grid>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="1" Margin="0,0,0,8">
+                                <TextBlock Text="Migration Plans" FontWeight="Bold" Foreground="#FFECB879" Margin="0,0,0,6" />
+                                <TextBox Name="MoveSearchBox" materialDesign:HintAssist.Hint="Search migration plans" Margin="0,0,0,6" />
+                            </StackPanel>
+
+                            <ListBox Name="MovePlanListBox" Grid.Row="2" Background="#FF1E1E1E" BorderThickness="0"
+                                     ScrollViewer.VerticalScrollBarVisibility="Auto" />
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Column="1" Background="#FF181818" CornerRadius="12" Padding="14">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <TextBox Name="MoveHeaderText" Grid.Row="0" Text="Migration Plan / VM" FontSize="22" FontWeight="Bold" BorderThickness="0" IsReadOnly="True" Background="Transparent" Margin="0,0,0,10" />
+
+                            <Grid Grid.Row="1" Margin="0,0,0,12">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Border Grid.Column="0" Background="#FF202020" CornerRadius="10" Margin="0,0,8,0" Padding="10">
+                                    <StackPanel>
+                                        <TextBlock Text="Plan Status" Foreground="#FFECB879" FontWeight="Bold" />
+                                        <TextBox Name="MovePlanStatusText" BorderThickness="0" IsReadOnly="True" Margin="0,8,0,0" />
+                                    </StackPanel>
+                                </Border>
+
+                                <Border Grid.Column="1" Background="#FF202020" CornerRadius="10" Margin="4,0,4,0" Padding="10">
+                                    <StackPanel>
+                                        <TextBlock Text="Source Cluster" Foreground="#FFECB879" FontWeight="Bold" />
+                                        <TextBox Name="MoveSourceClusterText" BorderThickness="0" IsReadOnly="True" Margin="0,8,0,0" />
+                                    </StackPanel>
+                                </Border>
+
+                                <Border Grid.Column="2" Background="#FF202020" CornerRadius="10" Margin="8,0,0,0" Padding="10">
+                                    <StackPanel>
+                                        <TextBlock Text="Destination Cluster" Foreground="#FFECB879" FontWeight="Bold" />
+                                        <TextBox Name="MoveDestinationClusterText" BorderThickness="0" IsReadOnly="True" Margin="0,8,0,0" />
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+
+                            <Grid Grid.Row="2" Margin="0,0,0,12">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Border Grid.Column="0" Background="#FF202020" CornerRadius="10" Margin="0,0,8,0" Padding="10">
+                                    <StackPanel>
+                                        <TextBlock Text="VM Name" Foreground="#FFECB879" FontWeight="Bold" />
+                                        <TextBox Name="MoveVmNameText" BorderThickness="0" IsReadOnly="True" Margin="0,8,0,0" />
+                                    </StackPanel>
+                                </Border>
+
+                                <Border Grid.Column="1" Background="#FF202020" CornerRadius="10" Margin="4,0,4,0" Padding="10">
+                                    <StackPanel>
+                                        <TextBlock Text="VM UUID" Foreground="#FFECB879" FontWeight="Bold" />
+                                        <TextBox Name="MoveVmUuidText" BorderThickness="0" IsReadOnly="True" Margin="0,8,0,0" />
+                                    </StackPanel>
+                                </Border>
+
+                                <Border Grid.Column="2" Background="#FF202020" CornerRadius="10" Margin="8,0,0,0" Padding="10">
+                                    <StackPanel>
+                                        <TextBlock Text="VM State" Foreground="#FFECB879" FontWeight="Bold" />
+                                        <TextBox Name="MoveVmStateText" BorderThickness="0" IsReadOnly="True" Margin="0,8,0,0" />
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+
+                            <Border Grid.Row="3" Background="#FF202020" CornerRadius="10" Padding="10">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Row="0" Text="Move VM Configuration" FontWeight="Bold" Foreground="#FFECB879" Margin="0,0,0,8" />
+                                    <TextBox Name="MoveVmJsonText" Grid.Row="1" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Background="#FF1E1E1E" BorderThickness="0" />
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

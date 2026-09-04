@@ -1,0 +1,69 @@
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Name="CreateMigrationPlanWindow"
+        Title="Create Migration Plan"
+        Height="760" Width="980" MinHeight="650" MinWidth="850"
+        WindowStartupLocation="CenterOwner"
+        Style="{DynamicResource MaterialDesignWindow}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontFamily="Roboto"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent">
+  <Window.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </Window.Resources>
+  <Grid Margin="8">
+    <Border Background="#FF202020" CornerRadius="18" BorderBrush="#FF303030" BorderThickness="1" Padding="18">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Margin="0,0,0,16">
+          <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+          <StackPanel Orientation="Horizontal">
+            <materialDesign:PackIcon Kind="PlusBox" Width="28" Height="28" Margin="0,0,10,0" Foreground="#FFECB879"/>
+            <StackPanel><TextBlock Text="Create Migration Plan" FontSize="22" FontWeight="Bold"/><TextBlock Name="CreatePlanMoveEndpointText" Opacity=".65"/></StackPanel>
+          </StackPanel>
+          <Button Grid.Column="1" Name="CreatePlanCloseButton" Width="32" Height="32" Background="Transparent" BorderThickness="0"><materialDesign:PackIcon Kind="Close"/></Button>
+        </Grid>
+        <Grid Grid.Row="1" Margin="0,0,0,14">
+          <Grid.ColumnDefinitions><ColumnDefinition Width="2*"/><ColumnDefinition Width="2*"/><ColumnDefinition Width="2*"/></Grid.ColumnDefinitions>
+          <TextBox Grid.Column="0" Name="CreatePlanNameTextBox" Margin="0,0,8,0" materialDesign:HintAssist.Hint="Migration plan name"/>
+          <ComboBox Grid.Column="1" Name="CreatePlanSourceCombo" Margin="4,0,4,0" materialDesign:HintAssist.Hint="Source provider"/>
+          <ComboBox Grid.Column="2" Name="CreatePlanTargetCombo" Margin="8,0,0,0" materialDesign:HintAssist.Hint="Target provider (AHV)"/>
+        </Grid>
+        <Grid Grid.Row="2">
+          <Grid.ColumnDefinitions><ColumnDefinition Width="1.2*"/><ColumnDefinition Width="1*"/></Grid.ColumnDefinitions>
+          <Border Grid.Column="0" Background="#FF181818" CornerRadius="10" Margin="0,0,8,0" Padding="10">
+            <Grid>
+              <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+              <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,8">
+                <TextBlock Text="Source VMs" FontWeight="Bold" Foreground="#FFECB879"/>
+                <TextBlock Name="CreatePlanVmCountText" Margin="10,0,0,0" Opacity=".65"/>
+              </StackPanel>
+              <ListBox Grid.Row="1" Name="CreatePlanVmListBox" SelectionMode="Extended" Background="#FF1E1E1E" BorderThickness="0" />
+            </Grid>
+          </Border>
+          <Border Grid.Column="1" Background="#FF181818" CornerRadius="10" Margin="8,0,0,0" Padding="10">
+            <Grid>
+              <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+              <TextBlock Grid.Row="0" Text="Network mappings" FontWeight="Bold" Foreground="#FFECB879" Margin="0,0,0,8"/>
+              <ListBox Grid.Row="1" Name="CreatePlanNetworkListBox" Background="#FF1E1E1E" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+            </Grid>
+          </Border>
+        </Grid>
+        <Grid Grid.Row="3" Margin="0,14,0,0">
+          <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="Auto"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+          <TextBlock Name="CreatePlanStatusText" VerticalAlignment="Center" TextWrapping="Wrap" Opacity=".75" Margin="0,0,12,0"/>
+          <Button Grid.Column="1" Name="CreatePlanCancelButton" Content="Cancel" Margin="0,0,8,0" Padding="20,8"/>
+          <Button Grid.Column="2" Name="CreatePlanCreateButton" Content="Create Plan" Padding="24,8" IsDefault="True"/>
+        </Grid>
+      </Grid>
+    </Border>
+  </Grid>
+</Window>

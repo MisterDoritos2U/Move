@@ -1,0 +1,268 @@
+---
+id: 89df81cd-1a1f-4df4-b004-d10dd4b413d4
+config:
+  layout: elk
+---
+flowchart LR
+
+  subgraph g0["Entry points"]
+    direction TB
+    n0["Close-MainWindow()"]
+    n1["Connect-NutanixAsset(EndPoint, Address, TimeOut)"]
+    n2["Initialize-SecretStore()"]
+    n3["Start-PCInventory(PrismCentralIPs, Header, ExistingIPs)"]
+    n4["Start-PEInventory(PrismElementIPs, Header)"]
+    n5["Start-MarshallingEvents(Event)"]
+    n6["Start-Setup()"]
+    n7["Start-TaskQueue()"]
+    n8["Initialize-TreeView()"]
+  end
+
+  subgraph g1["Credentials"]
+    direction TB
+    n9["Get-CredsPreference()"]
+    n10["Get-SavedCredentials(EndPoint)"]
+    n11["Get-UserCredentials(EndPoint, UserClicked)"]
+    n12["Remove-SavedCredentials(EndPoint)"]
+    n13["Save-Credentials(EndPoint, UserInput)"]
+    n14["Set-CredsPreference(Bool)"]
+    n15["Set-NtnxApiHeader(EndPoint, AuthenticationMethod)"]
+  end
+
+  subgraph g2["Inventory"]
+    direction TB
+    n16["Update-ClustersCount()"]
+    n17["Update-HostsCount()"]
+    n18["Get-AutoInventoryPreferences()"]
+    n19["Get-HardwareHealth(NXAddress, 13G)"]
+    n20["Get-HostFirmware(SwInventory)"]
+    n21["Get-HostInventory(CvmIP, InventoryType)"]
+    n22["Get-NtnxApiClusterInfo(Cluster, Header, PrismCentral, TimeOut)"]
+    n23["Get-NtnxApiCvmInfo(Cluster, Header, TimeOut)"]
+    n24["Get-NtnxApiHostInfo(Cluster, Header, TimeOut)"]
+    n25["Get-NutanixApiLcmEntity(Cluster, Header, TimeOut)"]
+    n26["Find-Host(FindItem)"]
+  end
+
+  subgraph g3["User interface"]
+    direction TB
+    n27["Update-AlertsCount()"]
+    n28["Format-IPList(IpList)"]
+    n29["Add-ListBoxItems(ListBoxName, Items, Priority, TreeViewItems)"]
+    n30["Remove-SelectedListBoxItems(ListBoxName)"]
+    n31["Sort-ListBoxItems(ListBoxName)"]
+    n32["Populate-Alerts(Hostname, ServiceTag, HardwareHealth)"]
+    n33["Sort-ListViewOnClick(Column)"]
+    n34["Get-AccentColor()"]
+    n35["Get-PrimaryColor()"]
+    n36["Get-SystemTheme()"]
+    n37["Get-ThemeMode(Window)"]
+    n38["Set-AccentColor(Color)"]
+    n39["Set-PrimaryColor(Color)"]
+    n40["Set-Theme(Window, ThemeMode, FromCredentialPromptWindow)"]
+    n41["Add-TreeViewItem(Type, ItemName, ClusterUuid, ClusterIP, ServiceTag)"]
+    n42["Get-SelectedInfo()"]
+    n43["Get-TreeViewItem(Type, Property, PropertyValue)"]
+    n44["Remove-MenuTreeViewItem(AosClusterName, ServiceTag)"]
+    n45["Remove-TreeViewItem()"]
+    n46["Sync-TreeView()"]
+  end
+
+  subgraph g4["Task processing"]
+    direction TB
+    n47["Remove-UnusedRunspaces()"]
+    n48["Get-TaskID()"]
+    n49["New-Task(TaskID, Target, Details)"]
+    n50["Update-Task(TaskID, Details, Target, Status)"]
+    n51["Update-TaskQueue()"]
+  end
+
+  subgraph g5["Networking"]
+    direction TB
+    n52["Confirm-ValidIP(IpList)"]
+    n53["Import-File(Filter)"]
+    n54["Import-Savedlists()"]
+  end
+
+  subgraph g6["Validation"]
+    direction TB
+    n55["Confirm-Module(Name)"]
+    n56["Test-RegistryValue(Path, Value)"]
+  end
+
+  subgraph g7["Utilities"]
+    direction TB
+    n57["Hide-Console()"]
+    n58["Open-Browser(SelectedValue)"]
+  end
+
+  subgraph g8["Other functions"]
+    direction TB
+    n59["New-ValidationDynamicParam(Name, ValidateSetOptions, Mandatory, ParameterSetName, ValueFromPipeline, ValueFromPipelineByPropertyName)"]
+    n60["New-ValidationDynamicParamInt(Name, ValidateSetOptions, Mandatory, ParameterSetName, ValueFromPipeline, ValueFromPipelineByPropertyName)"]
+  end
+
+  n1 ==>|"calls"| n59
+  n1 ==>|"calls"| n9
+  n1 ==>|"calls"| n11
+  n1 ==>|"calls"| n10
+  n1 ==>|"calls"| n10
+  n1 ==>|"calls"| n10
+  n1 ==>|"calls"| n10
+  n1 ==>|"calls"| n11
+  n11 ==>|"calls"| n37
+  n11 ==>|"calls"| n35
+  n11 ==>|"calls"| n34
+  n11 ==>|"calls"| n40
+  n11 ==>|"calls"| n13
+  n11 ==>|"calls"| n13
+  n19 ==>|"calls"| n1
+  n21 ==>|"calls"| n1
+  n54 ==>|"calls"| n28
+  n54 ==>|"calls"| n52
+  n54 ==>|"calls"| n29
+  n54 ==>|"calls"| n31
+  n54 ==>|"calls"| n28
+  n54 ==>|"calls"| n52
+  n54 ==>|"calls"| n29
+  n3 ==>|"calls"| n48
+  n3 ==>|"calls"| n49
+  n3 ==>|"calls"| n50
+  n3 ==>|"calls"| n7
+  n3 ==>|"calls"| n22
+  n3 ==>|"calls"| n51
+  n3 ==>|"calls"| n50
+  n3 ==>|"calls"| n28
+  n3 ==>|"calls"| n52
+  n3 ==>|"calls"| n51
+  n3 ==>|"calls"| n50
+  n3 ==>|"calls"| n51
+  n3 ==>|"calls"| n50
+  n3 ==>|"calls"| n52
+  n4 ==>|"calls"| n48
+  n4 ==>|"calls"| n49
+  n4 ==>|"calls"| n22
+  n4 ==>|"calls"| n50
+  n4 ==>|"calls"| n41
+  n4 ==>|"calls"| n50
+  n4 ==>|"calls"| n50
+  n4 ==>|"calls"| n7
+  n4 ==>|"calls"| n50
+  n4 ==>|"calls"| n50
+  n4 ==>|"calls"| n24
+  n4 ==>|"calls"| n50
+  n4 ==>|"calls"| n50
+  n4 ==>|"calls"| n50
+  n4 ==>|"calls"| n23
+  n4 ==>|"calls"| n50
+  n4 ==>|"calls"| n50
+  n4 ==>|"calls"| n21
+  n4 ==>|"calls"| n21
+  n4 ==>|"calls"| n20
+  n4 ==>|"calls"| n50
+  n4 ==>|"calls"| n50
+  n4 ==>|"calls"| n19
+  n4 ==>|"calls"| n41
+  n4 ==>|"calls"| n50
+  n4 ==>|"calls"| n50
+  n4 ==>|"calls"| n51
+  n29 ==>|"calls"| n35
+  n15 ==>|"calls"| n9
+  n15 ==>|"calls"| n11
+  n15 ==>|"calls"| n10
+  n15 ==>|"calls"| n11
+  n5 ==>|"calls"| n46
+  n5 ==>|"calls"| n29
+  n6 ==>|"calls"| n56
+  n6 ==>|"calls"| n55
+  n6 ==>|"calls"| n55
+  n6 ==>|"calls"| n55
+  n6 ==>|"calls"| n55
+  n6 ==>|"calls"| n55
+  n6 ==>|"calls"| n2
+  n34 ==>|"calls"| n56
+  n35 ==>|"calls"| n56
+  n38 ==>|"calls"| n34
+  n41 ==>|"calls"| n16
+  n41 ==>|"calls"| n16
+  n41 ==>|"calls"| n17
+  n41 ==>|"calls"| n17
+  n8 ==>|"calls"| n41
+  n8 ==>|"calls"| n41
+  n8 ==>|"calls"| n16
+  n8 ==>|"calls"| n17
+  n46 ==>|"calls"| n41
+  n46 ==>|"calls"| n41
+  n46 ==>|"calls"| n16
+  n46 ==>|"calls"| n17
+
+  classDef entry fill:#eef2ff,stroke:#818cf8,stroke-width:2px;
+  classDef credentials fill:#f0fdfa,stroke:#2dd4bf,stroke-width:2px;
+  classDef inventory fill:#ecfeff,stroke:#22d3ee,stroke-width:2px;
+  classDef ui fill:#f5f3ff,stroke:#a78bfa,stroke-width:2px;
+  classDef tasks fill:#fff7ed,stroke:#fb923c,stroke-width:2px;
+  classDef utility fill:#f0fdf4,stroke:#4ade80,stroke-width:2px;
+  classDef dependency fill:#f8fafc,stroke:#64748b,stroke-width:1.5px;
+  classDef external fill:#fefce8,stroke:#ca8a04,stroke-width:1.5px;
+  linkStyle default stroke:#64748b,stroke-width:1.5px;
+  class n0 entry;
+  class n55 utility;
+  class n52 utility;
+  class n1 entry;
+  class n9 credentials;
+  class n10 credentials;
+  class n11 credentials;
+  class n2 entry;
+  class n12 credentials;
+  class n13 credentials;
+  class n14 credentials;
+  class n27 ui;
+  class n16 inventory;
+  class n17 inventory;
+  class n28 ui;
+  class n57 utility;
+  class n53 utility;
+  class n18 inventory;
+  class n19 inventory;
+  class n20 inventory;
+  class n21 inventory;
+  class n54 utility;
+  class n3 entry;
+  class n4 entry;
+  class n29 ui;
+  class n30 ui;
+  class n31 ui;
+  class n59 utility;
+  class n60 utility;
+  class n22 inventory;
+  class n23 inventory;
+  class n24 inventory;
+  class n25 inventory;
+  class n15 credentials;
+  class n58 utility;
+  class n32 ui;
+  class n47 tasks;
+  class n5 entry;
+  class n6 entry;
+  class n48 tasks;
+  class n49 tasks;
+  class n33 ui;
+  class n7 entry;
+  class n50 tasks;
+  class n51 tasks;
+  class n56 utility;
+  class n34 ui;
+  class n35 ui;
+  class n36 ui;
+  class n37 ui;
+  class n38 ui;
+  class n39 ui;
+  class n40 ui;
+  class n41 ui;
+  class n26 inventory;
+  class n42 ui;
+  class n43 ui;
+  class n8 entry;
+  class n44 ui;
+  class n45 ui;
+  class n46 ui;
